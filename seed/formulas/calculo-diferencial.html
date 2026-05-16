@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#eefdf3;padding:32px;color:#111e18}
+.card{max-width:720px;margin:0 auto;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-radius:24px;padding:40px;box-shadow:0 4px 24px rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.04)}
+h1{font-size:28px;font-weight:600;letter-spacing:-0.01em;margin-bottom:4px}
+.sub{color:#434843;font-size:14px;margin-bottom:28px}
+.section{margin-bottom:24px}
+.section h2{font-size:16px;font-weight:600;color:#1f3525;margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid #b3cdb6}
+.formula{background:#fff;border:1px solid #e2f2e7;border-radius:12px;padding:12px 16px;margin-bottom:8px;font-size:15px;line-height:1.6;display:flex;align-items:baseline;gap:8px}
+.formula .tag{display:inline-block;background:#e2f2e7;color:#354c3b;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;white-space:nowrap;margin-right:4px}
+.formula .desc{color:#434843;font-size:13px;margin-top:2px}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>📐 Cálculo Diferencial</h1>
+<p class="sub">Fórmulas esenciales · Matemática</p>
+
+<div class="section">
+<h2>Derivadas Básicas</h2>
+<div class="formula"><span class="tag">d/dx</span> <strong>c</strong> = 0 <span class="desc">(constante)</span></div>
+<div class="formula"><span class="tag">d/dx</span> <strong>xⁿ</strong> = n · x<sup>n−1</sup> <span class="desc">(potencia)</span></div>
+<div class="formula"><span class="tag">d/dx</span> <strong>e<sup>x</sup></strong> = e<sup>x</sup> <span class="desc">(exponencial)</span></div>
+<div class="formula"><span class="tag">d/dx</span> <strong>ln x</strong> = 1/x <span class="desc">(logaritmo)</span></div>
+<div class="formula"><span class="tag">d/dx</span> <strong>sin x</strong> = cos x <span class="desc">(trigonométrica)</span></div>
+<div class="formula"><span class="tag">d/dx</span> <strong>cos x</strong> = −sin x <span class="desc">(trigonométrica)</span></div>
+</div>
+
+<div class="section">
+<h2>Reglas de Derivación</h2>
+<div class="formula"><span class="tag">Producto</span> (f · g)' = f' · g + f · g'</div>
+<div class="formula"><span class="tag">Cociente</span> (f/g)' = (f' · g − f · g') / g²</div>
+<div class="formula"><span class="tag">Cadena</span> (f ∘ g)' = f'(g) · g'</div>
+</div>
+
+<div class="section">
+<h2>Límites Notables</h2>
+<div class="formula">lim<sub>x→0</sub> <strong>sin x / x</strong> = 1</div>
+<div class="formula">lim<sub>x→0</sub> <strong>(e<sup>x</sup> − 1) / x</strong> = 1</div>
+<div class="formula">lim<sub>x→∞</sub> <strong>(1 + 1/n)<sup>n</sup></strong> = e</div>
+</div>
+</div>
+</body>
+</html>
