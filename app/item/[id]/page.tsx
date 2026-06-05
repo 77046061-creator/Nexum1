@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import DeleteButton from "@/components/delete-button";
 
 export default async function ItemPage({
   params,
@@ -9,6 +11,11 @@ export default async function ItemPage({
 }) {
   const { id } = await params;
   const admin = createAdminClient();
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const { data: item } = await admin
     .from("items")
@@ -17,6 +24,20 @@ export default async function ItemPage({
     .single();
 
   if (!item) notFound();
+
+  const discordId =
+    user?.identities?.[0]?.id ||
+    user?.user_metadata?.provider_id ||
+    user?.user_metadata?.iss?.split("/").pop();
+
+  const { data: profile } = await admin
+    .from("users")
+    .select("id")
+    .eq("discord_id", discordId ?? "")
+    .maybeSingle();
+
+  const userId = profile?.id || user?.id;
+  const isOwner = !!userId && item.user_id === userId;
 
   const typeLabels: Record<string, string> = {
     exam: "Examen",
@@ -115,6 +136,8 @@ export default async function ItemPage({
             </svg>
             Descargar archivo
           </a>
+
+          {isOwner && <DeleteButton itemId={item.id} />}
         </div>
 
         <p className="mt-4 text-center text-label-sm text-on-surface-variant">
