@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import Sidebar from "@/components/dashboard-sidebar";
 import DashboardFab from "@/components/dashboard-fab";
-import UserMenu from "@/components/user-menu";
+
 
 export default async function Dashboard() {
   const supabase = await createClient();
@@ -123,7 +123,17 @@ export default async function Dashboard() {
                 className="w-full rounded-xl border border-outline-variant/30 bg-surface py-2.5 pl-10 pr-4 text-body-md text-on-surface outline-none transition focus:border-primary-container focus:ring-2 focus:ring-primary-container/20"
               />
             </div>
-            <UserMenu displayName={displayName} streak={profile?.streak} />
+            <div className="flex items-center gap-2">
+              <a
+                href="/api/auth/logout"
+                className="hidden rounded-lg border border-outline-variant/30 px-3 py-1.5 text-label-sm text-on-surface-variant transition-colors hover:bg-surface-container hover:text-on-surface sm:block"
+              >
+                Salir
+              </a>
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary-container to-primary text-sm font-semibold text-on-primary shadow-sm">
+                {displayName.charAt(0).toUpperCase()}
+              </div>
+            </div>
           </div>
 
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
