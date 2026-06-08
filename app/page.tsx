@@ -72,14 +72,14 @@ async function Navbar() {
 function Hero() {
   return (
     <section className="relative flex flex-col items-center px-4 pt-36 pb-20 text-center md:px-16 md:pt-44 md:pb-28">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,_rgba(31,53,37,0.06)_0%,_transparent_70%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,_rgba(59,130,246,0.1)_0%,_transparent_70%)]" />
       <div className="relative max-w-3xl">
-        <h1 className="text-display text-primary">
+        <h1 className="text-display text-white">
           Tu conocimiento,
           <br />
           organizado.
         </h1>
-        <p className="mt-6 text-body-lg text-on-surface-variant md:px-12">
+        <p className="mt-6 text-body-lg text-blue-200/70 md:px-12">
           Sube exámenes, prácticas, resúmenes y fórmulas desde Discord o desde la web.
           Revisa todo en tu Depth Board personal.
         </p>
@@ -126,7 +126,7 @@ async function CommunityStats() {
           </div>
         </div>
         {subjects && subjects.length > 0 && (
-          <p className="mt-6 text-center text-label-md text-on-surface-variant">
+          <p className="mt-6 text-center text-label-md text-blue-200/60">
             {subjects.map((s) => s.display_name).join(" · ")}
           </p>
         )}
@@ -186,15 +186,15 @@ function ContentTypes() {
   return (
     <section className="px-4 py-20 md:px-16 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-heading-lg text-center text-primary">Tipos de contenido</h2>
+        <h2 className="text-heading-lg text-center text-white/90">Tipos de contenido</h2>
         <div className="mt-14 grid gap-5 sm:grid-cols-2">
           {defaultTypes.map((type) => (
             <div
               key={type.name}
-              className="group flex items-center gap-5 rounded-xl border border-outline-variant/30 bg-surface px-6 py-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
+              className="group flex items-center gap-5 rounded-xl border border-white/20 bg-white/80 px-6 py-5 shadow-sm backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:shadow-lg"
             >
               <span className="text-3xl">{type.icon}</span>
-              <span className="text-heading-md text-primary">{type.name}</span>
+              <span className="text-heading-md text-white/90">{type.name}</span>
             </div>
           ))}
         </div>
@@ -205,16 +205,16 @@ function ContentTypes() {
 
 function Footer_() {
   return (
-    <footer className="border-t border-outline-variant/30 px-4 py-10 md:px-16">
+    <footer className="border-t border-white/10 px-4 py-10 md:px-16">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
-        <span className="text-heading-md text-primary">Nexum</span>
-        <p className="text-body-md text-on-surface-variant">
+        <span className="text-heading-md text-blue-200">Nexum</span>
+        <p className="text-body-md text-blue-200/60">
           Hecho por estudiantes, para estudiantes.
         </p>
-        <div className="flex gap-6 text-label-md text-on-surface-variant">
-          <a href="#" className="hover:text-on-surface">Términos</a>
-          <a href="#" className="hover:text-on-surface">Privacidad</a>
-          <a href="#" className="hover:text-on-surface">Contacto</a>
+        <div className="flex gap-6 text-label-md text-blue-200/50">
+          <a href="#" className="hover:text-blue-200">Términos</a>
+          <a href="#" className="hover:text-blue-200">Privacidad</a>
+          <a href="#" className="hover:text-blue-200">Contacto</a>
         </div>
       </div>
     </footer>
