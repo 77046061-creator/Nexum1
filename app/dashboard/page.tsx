@@ -95,11 +95,9 @@ export default async function Dashboard() {
   const uniqueSubjectsCount = enrolledSubjects.size;
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-surface via-surface-dim/20 to-surface">
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-40 -right-40 h-[600px] w-[600px] animate-pulse rounded-full bg-primary-fixed-dim/15 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 h-[500px] w-[500px] animate-pulse rounded-full bg-secondary-fixed-dim/15 blur-3xl [animation-delay:3s]" />
-        <div className="absolute top-1/2 left-1/3 h-[400px] w-[400px] -translate-x-1/2 animate-pulse rounded-full bg-tertiary-fixed-dim/10 blur-3xl [animation-delay:6s]" />
+    <div className="relative min-h-screen bg-dashboard">
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-tech-gradient" />
       </div>
 
       <Sidebar streak={profile?.streak} />

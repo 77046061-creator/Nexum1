@@ -74,6 +74,36 @@
 }
 
 @layer utilities {
+  .bg-grid-dots {
+    background-image: radial-gradient(rgba(31,53,37,0.12) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+  }
+  .bg-grid-lines {
+    background-image:
+      linear-gradient(rgba(31,53,37,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31,53,37,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .bg-tech-gradient {
+    background:
+      radial-gradient(ellipse 80% 60% at 0% 20%, rgba(179,205,182,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(181,204,192,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(207,233,210,0.08) 0%, transparent 50%);
+  }
+  .bg-tech-gradient-dark {
+    background:
+      radial-gradient(ellipse 80% 60% at 0% 20%, rgba(31,53,37,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(78,99,89,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(8,31,33,0.04) 0%, transparent 50%);
+  }
+  .bg-dashboard {
+    background-color: #eefdf3;
+    background-image:
+      radial-gradient(rgba(31,53,37,0.08) 0.5px, transparent 0.5px),
+      radial-gradient(ellipse 80% 60% at 0% 20%, rgba(179,205,182,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(181,204,192,0.1) 0%, transparent 60%);
+    background-size: 20px 20px, 100% 100%, 100% 100%;
+  }
   .text-display {
     font-size: 48px;
     font-weight: 700;

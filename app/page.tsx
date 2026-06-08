@@ -11,7 +11,7 @@ async function Navbar() {
   return (
     <header className="fixed top-0 inset-x-0 z-50">
       <div className="mx-auto max-w-7xl px-4 md:px-16">
-        <div className="mt-2 flex items-center justify-between rounded-2xl border border-outline-variant/40 bg-white/75 px-5 py-3 shadow-sm backdrop-blur-xl">
+        <div className="mt-2 flex items-center justify-between rounded-2xl border border-outline-variant/40 bg-white/80 px-5 py-3 shadow-sm backdrop-blur-xl">
           <div className="flex items-center gap-8">
             <Link href="/" className="text-heading-md text-primary">
               Nexum
