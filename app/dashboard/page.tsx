@@ -5,7 +5,14 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import Sidebar from "@/components/dashboard-sidebar";
 import DashboardFab from "@/components/dashboard-fab";
 
-export default async function Dashboard() {
+export default async function Dashboard({
+  searchParams,
+}: {
+  searchParams: Promise<{ tab?: string }>
+}) {
+  const { tab } = await searchParams;
+  const activeTab = tab || "dashboard";
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -50,6 +57,24 @@ export default async function Dashboard() {
     .from("favorites")
     .select("*", { count: "exact", head: true })
     .eq("user_id", userId);
+
+  let favoriteItems: any[] = [];
+  if (activeTab === "favorites") {
+    const { data: favs } = await admin
+      .from("favorites")
+      .select("*, items(*, subjects(name, display_name), users(username))")
+      .eq("user_id", userId);
+    favoriteItems = favs?.map((f: any) => f.items).filter(Boolean) || [];
+  }
+
+  let downloadedItems: any[] = [];
+  if (activeTab === "downloads") {
+    const { data: dl } = await admin
+      .from("downloads")
+      .select("*, items(*, subjects(name, display_name), users(username))")
+      .eq("user_id", userId);
+    downloadedItems = dl?.map((d: any) => d.items).filter(Boolean) || [];
+  }
 
   const topSubjects = await admin
     .from("items")
@@ -136,7 +161,8 @@ export default async function Dashboard() {
             </p>
           </div>
 
-          <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {activeTab === "dashboard" || activeTab === "stats" ? (
+            <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {[
               { label: "Total archivos", value: myCount, icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z", gradient: "from-primary/10 to-primary-container/20", iconBg: "bg-primary/10 text-white", ring: "ring-primary-fixed-dim/30" },
               { label: "Cursos activos", value: uniqueSubjectsCount, icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253", gradient: "from-secondary/10 to-secondary-container/20", iconBg: "bg-secondary/10 text-secondary", ring: "ring-secondary-fixed-dim/30" },
@@ -161,8 +187,9 @@ export default async function Dashboard() {
               </div>
             ))}
           </div>
+          ) : null}
 
-          {myCount > 0 && (
+          {activeTab === "dashboard" && myCount > 0 && (
             <div className="mt-8">
               <h2 className="text-heading-md text-white/90">Continuar estudiando</h2>
               <div className="mt-4 overflow-hidden rounded-2xl border border-white/30 bg-[#0d1f3c]/70 shadow-sm backdrop-blur-sm">
@@ -199,7 +226,7 @@ export default async function Dashboard() {
             </div>
           )}
 
-          {(recentItems && recentItems.length > 0 || popularDocs && popularDocs.length > 0) && (
+          {activeTab === "dashboard" && (recentItems && recentItems.length > 0 || popularDocs && popularDocs.length > 0) && (
             <div className="mt-8 grid gap-6 lg:grid-cols-2">
               {recentItems && recentItems.length > 0 && (
                 <div className="rounded-2xl border border-white/30 bg-gradient-to-br from-[#0d1f3c]/80 via-[#0d1f3c]/60 to-primary-container/10 p-5 shadow-sm backdrop-blur-sm">
@@ -270,7 +297,7 @@ export default async function Dashboard() {
             </div>
           )}
 
-          {topSubjectsList.length > 0 && (
+          {activeTab === "dashboard" && topSubjectsList.length > 0 && (
             <div className="mt-8">
               <h2 className="text-heading-md text-white/90">Cursos más utilizados</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -308,7 +335,7 @@ export default async function Dashboard() {
             </div>
           )}
 
-          {communityItems && communityItems.length > 0 && (
+          {activeTab === "dashboard" && communityItems && communityItems.length > 0 && (
             <div className="mt-8">
               <div className="flex items-center gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-xs ring-1 ring-white/20">
@@ -374,7 +401,7 @@ export default async function Dashboard() {
             </div>
           )}
 
-          {myCount === 0 && (
+          {activeTab === "dashboard" && myCount === 0 && (
             <div className="mt-20 flex flex-col items-center text-center">
               <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-primary-fixed-dim/30 via-white/10 to-secondary-fixed-dim/30 text-4xl shadow-sm ring-1 ring-primary-fixed-dim/20">
                 📭
@@ -403,7 +430,7 @@ export default async function Dashboard() {
             </div>
           )}
 
-          {myCount > 0 && (
+          {(activeTab === "dashboard" || activeTab === "files") && myCount > 0 && (
             <div className="mt-12">
               <div className="flex items-center gap-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-xs ring-1 ring-white/20">
@@ -469,7 +496,7 @@ export default async function Dashboard() {
             </div>
           )}
 
-          {communityItems && communityItems.length > 0 && myCount > 0 && (
+          {activeTab === "dashboard" && communityItems && communityItems.length > 0 && myCount > 0 && (
             <div className="mt-12">
               <div className="flex items-center gap-3">
                 <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -520,6 +547,138 @@ export default async function Dashboard() {
               </div>
             </div>
           )}
+          {activeTab === "formulas" && (
+            <div className="mt-8">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-xs ring-1 ring-white/20">📐</div>
+                <h2 className="text-heading-md text-white/90">Fórmulas</h2>
+                <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-label-sm text-blue-200">
+                  {(items?.filter(i => i.type === "formula")?.length) || 0} fórmulas
+                </span>
+              </div>
+              {items?.filter(i => i.type === "formula").length ? (
+                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {items?.filter(i => i.type === "formula").map((item) => (
+                    <Link key={item.id} href={`/item/${item.id}`}
+                      className="group relative overflow-hidden rounded-2xl border border-white/30 bg-[#0d1f3c]/70 p-5 shadow-sm backdrop-blur-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+                      <div className="relative">
+                        <div className="flex items-center gap-2">
+                          <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-label-sm text-blue-200/70">{typeLabels[item.type] || item.type}</span>
+                        </div>
+                        <h3 className="mt-2 text-body-md font-semibold text-white transition-colors group-hover:text-primary-container">{item.title}</h3>
+                        {item.subjects && <p className="mt-1 text-label-sm text-blue-200/70">{item.subjects.display_name}</p>}
+                        <div className="mt-3 flex items-center gap-3 text-label-sm text-blue-200/70">
+                          {item.file_size && <span>{(item.file_size / 1024 / 1024).toFixed(1)} MB</span>}
+                          <span className="flex items-center gap-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>{item.downloads}</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="mt-8 flex flex-col items-center text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 text-3xl">📐</div>
+                  <p className="mt-4 text-body-md text-blue-200/70">Aún no has subido fórmulas</p>
+                  <p className="mt-1 text-label-sm text-blue-200/50">Usa el botón + para añadir una</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === "favorites" && (
+            <div className="mt-8">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-xs ring-1 ring-white/20">❤️</div>
+                <h2 className="text-heading-md text-white/90">Favoritos</h2>
+                <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-label-sm text-blue-200">{favoriteItems.length} items</span>
+              </div>
+              {favoriteItems.length ? (
+                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {favoriteItems.map((item: any) => (
+                    <Link key={item.id} href={`/item/${item.id}`}
+                      className="group relative overflow-hidden rounded-2xl border border-white/30 bg-[#0d1f3c]/70 p-5 shadow-sm backdrop-blur-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+                      <div className="relative">
+                        <div className="flex items-center gap-2">
+                          <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-label-sm text-blue-200/70">{typeLabels[item.type] || item.type}</span>
+                        </div>
+                        <h3 className="mt-2 text-body-md font-semibold text-white transition-colors group-hover:text-primary-container">{item.title}</h3>
+                        {item.subjects?.display_name && <p className="mt-1 text-label-sm text-blue-200/70">{item.subjects.display_name}</p>}
+                        <div className="mt-3 flex items-center gap-3 text-label-sm text-blue-200/70">
+                          <span>{item.downloads} descargas</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="mt-8 flex flex-col items-center text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 text-3xl">❤️</div>
+                  <p className="mt-4 text-body-md text-blue-200/70">No tienes favoritos aún</p>
+                  <p className="mt-1 text-label-sm text-blue-200/50">Marca archivos como favoritos desde su página</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === "downloads" && (
+            <div className="mt-8">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-xs ring-1 ring-white/20">⬇️</div>
+                <h2 className="text-heading-md text-white/90">Descargas</h2>
+                <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-label-sm text-blue-200">{downloadedItems.length} items</span>
+              </div>
+              {downloadedItems.length ? (
+                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {downloadedItems.map((item: any) => (
+                    <Link key={item.id} href={`/item/${item.id}`}
+                      className="group relative overflow-hidden rounded-2xl border border-white/30 bg-[#0d1f3c]/70 p-5 shadow-sm backdrop-blur-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+                      <div className="relative">
+                        <div className="flex items-center gap-2">
+                          <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-label-sm text-blue-200/70">{typeLabels[item.type] || item.type}</span>
+                        </div>
+                        <h3 className="mt-2 text-body-md font-semibold text-white transition-colors group-hover:text-primary-container">{item.title}</h3>
+                        {item.subjects?.display_name && <p className="mt-1 text-label-sm text-blue-200/70">{item.subjects.display_name}</p>}
+                        <div className="mt-3 flex items-center gap-3 text-label-sm text-blue-200/70">
+                          <span>{item.downloads} descargas</span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="mt-8 flex flex-col items-center text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 text-3xl">⬇️</div>
+                  <p className="mt-4 text-body-md text-blue-200/70">No has descargado nada aún</p>
+                  <p className="mt-1 text-label-sm text-blue-200/50">Descarga archivos desde sus páginas</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {activeTab === "settings" && (
+            <div className="mt-8">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-xs ring-1 ring-white/20">⚙️</div>
+                <h2 className="text-heading-md text-white/90">Configuración</h2>
+              </div>
+              <div className="mt-6 rounded-2xl border border-white/30 bg-[#0d1f3c]/70 p-6 shadow-sm backdrop-blur-sm">
+                <div className="flex flex-col items-center text-center py-8">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 text-2xl">🔧</div>
+                  <p className="mt-4 text-body-md text-blue-200/70">Configuración próximamente</p>
+                  <p className="mt-1 text-label-sm text-blue-200/50">Personaliza tu experiencia en Nexum</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "stats" && (
+            <div className="mt-8 flex flex-col items-center text-center py-8">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 text-2xl">📊</div>
+              <p className="mt-4 text-body-md text-blue-200/70">Estadísticas detalladas próximamente</p>
+              <p className="mt-1 text-label-sm text-blue-200/50">Las cards de resumen arriba muestran tus números actuales</p>
+            </div>
+          )}
+
         </div>
       </div>
 
