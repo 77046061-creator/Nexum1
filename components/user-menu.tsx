@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 
 export default function UserMenu({
   displayName,
@@ -10,20 +10,9 @@ export default function UserMenu({
   streak?: number;
 }) {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
 
   return (
-    <div ref={ref} className="relative">
+    <div className="relative" onClick={(e) => e.stopPropagation()}>
       <button
         onClick={() => setOpen(!open)}
         className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary-container to-primary text-sm font-semibold text-on-primary shadow-sm transition-all hover:scale-105"
@@ -32,9 +21,12 @@ export default function UserMenu({
       </button>
 
       {open && (
-        <div className="absolute right-0 top-12 w-48 origin-top-right animate-fade-in rounded-2xl border border-white/20 bg-white/90 p-2 shadow-xl backdrop-blur-xl">
+        <div
+          className="absolute right-0 top-12 z-50 w-48 rounded-2xl border border-white/20 bg-white/90 p-2 shadow-xl backdrop-blur-xl"
+          style={{ animation: "fadeIn 0.15s ease-out" }}
+        >
           <div className="border-b border-outline-variant/20 px-3 py-2">
-            <p className="text-label-sm font-medium text-on-surface truncate">{displayName}</p>
+            <p className="truncate text-label-sm font-medium text-on-surface">{displayName}</p>
             {streak !== undefined && (
               <p className="text-label-xs text-on-surface-variant">🔥 {streak} días seguidas</p>
             )}
@@ -52,6 +44,20 @@ export default function UserMenu({
           </a>
         </div>
       )}
+
+      {open && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-4px) scale(0.96); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+      `}</style>
     </div>
   );
 }
