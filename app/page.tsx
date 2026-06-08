@@ -223,7 +223,19 @@ function Footer_() {
 
 export default function Home() {
   return (
-    <>
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundColor: "#eefdf3",
+        backgroundImage: `
+          linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px),
+          radial-gradient(ellipse 80% 60% at 0% 20%, rgba(59,130,246,0.06) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 50% at 100% 80%, rgba(139,92,246,0.05) 0%, transparent 60%)
+        `,
+        backgroundSize: "40px 40px, 40px 40px, 100% 100%, 100% 100%",
+      }}
+    >
       <Navbar />
       <main className="flex-1">
         <Hero />
@@ -232,6 +244,6 @@ export default function Home() {
         <ContentTypes />
       </main>
       <Footer_ />
-    </>
+    </div>
   );
 }

@@ -95,10 +95,18 @@ export default async function Dashboard() {
   const uniqueSubjectsCount = enrolledSubjects.size;
 
   return (
-    <div className="relative min-h-screen bg-dashboard">
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-tech-gradient" />
-      </div>
+    <div className="relative min-h-screen"
+      style={{
+        backgroundColor: "#eefdf3",
+        backgroundImage: `
+          linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px),
+          radial-gradient(ellipse 80% 60% at 0% 20%, rgba(59,130,246,0.06) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 50% at 100% 80%, rgba(139,92,246,0.05) 0%, transparent 60%)
+        `,
+        backgroundSize: "40px 40px, 40px 40px, 100% 100%, 100% 100%",
+      }}
+    >
 
       <Sidebar streak={profile?.streak} />
 
