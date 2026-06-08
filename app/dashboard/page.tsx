@@ -130,8 +130,8 @@ export default async function Dashboard() {
           </div>
 
           <div className="mt-8">
-            <h2 className="text-heading-md text-primary">Resumen</h2>
-            <p className="mt-0.5 text-body-md text-on-surface-variant">
+            <h2 className="text-heading-md text-white/90">Resumen</h2>
+            <p className="mt-0.5 text-body-md text-blue-200/70">
               Bienvenido de vuelta, {displayName}
             </p>
           </div>
@@ -164,7 +164,7 @@ export default async function Dashboard() {
 
           {myCount > 0 && (
             <div className="mt-8">
-              <h2 className="text-heading-md text-primary">Continuar estudiando</h2>
+              <h2 className="text-heading-md text-white/90">Continuar estudiando</h2>
               <div className="mt-4 overflow-hidden rounded-2xl border border-white/30 bg-white/70 shadow-sm backdrop-blur-sm">
                 {recentItems?.map((item, i) => (
                   <Link
@@ -272,7 +272,7 @@ export default async function Dashboard() {
 
           {topSubjectsList.length > 0 && (
             <div className="mt-8">
-              <h2 className="text-heading-md text-primary">Cursos más utilizados</h2>
+              <h2 className="text-heading-md text-white/90">Cursos más utilizados</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 {topSubjectsList.map(([name, count], i) => {
                   const colors = [
@@ -311,11 +311,11 @@ export default async function Dashboard() {
           {communityItems && communityItems.length > 0 && (
             <div className="mt-8">
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-tertiary-container/30 to-tertiary/10 text-xs text-tertiary ring-1 ring-tertiary-fixed-dim/20">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-xs ring-1 ring-white/20">
                   🌐
                 </div>
-                <h2 className="text-heading-md text-primary">Comunidad</h2>
-                <span className="rounded-full bg-tertiary-container/20 px-2.5 py-0.5 text-label-sm text-tertiary">
+                <h2 className="text-heading-md text-white/90">Comunidad</h2>
+                <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-label-sm text-blue-200">
                   {communityItems.length} materiales
                 </span>
               </div>
@@ -379,12 +379,12 @@ export default async function Dashboard() {
               <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-primary-fixed-dim/30 via-surface-container to-secondary-fixed-dim/30 text-4xl shadow-sm ring-1 ring-primary-fixed-dim/20">
                 📭
               </div>
-              <h2 className="mt-6 text-heading-lg text-primary">
+              <h2 className="mt-6 text-heading-lg text-white/90">
                 Tu Depth Board está vacío
               </h2>
-              <p className="mt-2 max-w-md text-body-md text-on-surface-variant">
+              <p className="mt-2 max-w-md text-body-md text-blue-200/70">
                 Sube tu primer archivo con el botón <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-primary-container to-primary text-sm text-on-primary shadow-sm">+</span> o desde Discord con{" "}
-                <code className="rounded-md bg-surface-container-high px-2 py-0.5 text-label-sm font-mono text-primary">
+                <code className="rounded-md bg-surface-container-high px-2 py-0.5 text-label-sm font-mono text-white">
                   /subir
                 </code>
               </p>
@@ -406,11 +406,11 @@ export default async function Dashboard() {
           {myCount > 0 && (
             <div className="mt-12">
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-primary-container/30 to-primary/10 text-xs text-primary ring-1 ring-primary-fixed-dim/20">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-xs ring-1 ring-white/20">
                   📁
                 </div>
-                <h2 className="text-heading-md text-primary">Mis archivos</h2>
-                <span className="rounded-full bg-primary-fixed-dim/30 px-2.5 py-0.5 text-label-sm text-primary">
+                <h2 className="text-heading-md text-white/90">Mis archivos</h2>
+                <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-label-sm text-blue-200">
                   {myCount} archivos
                 </span>
               </div>
@@ -472,14 +472,14 @@ export default async function Dashboard() {
           {communityItems && communityItems.length > 0 && myCount > 0 && (
             <div className="mt-12">
               <div className="flex items-center gap-3">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent" />
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-tertiary-container/30 to-tertiary/10 text-xs text-tertiary ring-1 ring-tertiary-fixed-dim/20">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/10 text-xs ring-1 ring-white/20">
                     🌍
                   </div>
-                  <h2 className="text-heading-md text-primary">Explorar</h2>
+                  <h2 className="text-heading-md text-white/90">Explorar</h2>
                 </div>
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent" />
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
               </div>
               <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {communityItems.slice(0, 6).map((item) => (

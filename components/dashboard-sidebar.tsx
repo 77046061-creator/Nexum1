@@ -23,19 +23,19 @@ export default function Sidebar({ streak }: { streak?: number }) {
   return (
     <>
       <aside
-        className={`fixed left-0 top-0 z-40 flex h-screen flex-col border-r border-outline-variant/20 bg-white/80 backdrop-blur-xl transition-all duration-300 ${
+        className={`fixed left-0 top-0 z-40 flex h-screen flex-col border-r border-white/10 bg-[#0d1f3c]/95 backdrop-blur-xl transition-all duration-300 ${
           collapsed ? "w-16" : "w-60"
         }`}
       >
-        <div className="flex h-16 items-center justify-between border-b border-outline-variant/20 px-4">
+        <div className="flex h-16 items-center justify-between border-b border-white/10 px-4">
           {!collapsed && (
-            <Link href="/" className="text-heading-md text-primary">
+            <Link href="/" className="text-heading-md text-blue-200">
               Nexum
             </Link>
           )}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="rounded-lg p-1.5 text-on-surface-variant hover:bg-surface-container transition-colors"
+            className="rounded-lg p-1.5 text-blue-300 hover:bg-white/10 transition-colors"
             aria-label={collapsed ? "Expandir sidebar" : "Colapsar sidebar"}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -59,8 +59,8 @@ export default function Sidebar({ streak }: { streak?: number }) {
                 href={section.href}
                 className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-label-sm transition-all ${
                   isActive
-                    ? "bg-primary-container/20 text-primary font-semibold"
-                    : "text-on-surface-variant hover:bg-surface-container hover:text-on-surface"
+                    ? "bg-blue-500/20 text-blue-200 font-semibold"
+                    : "text-blue-200/60 hover:bg-white/10 hover:text-blue-200/90"
                 }`}
                 title={collapsed ? section.label : undefined}
               >
@@ -75,11 +75,11 @@ export default function Sidebar({ streak }: { streak?: number }) {
           })}
         </nav>
 
-        <div className="border-t border-outline-variant/20 p-3">
+        <div className="border-t border-white/10 p-3">
           {!collapsed && streak !== undefined && (
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 rounded-xl bg-primary-fixed-dim/20 px-3 py-2 text-label-sm text-primary"
+              className="flex items-center gap-2 rounded-xl bg-blue-500/10 px-3 py-2 text-label-sm text-blue-200"
             >
               <span className="text-sm">🔥</span>
               <span>{streak} días seguidas</span>
