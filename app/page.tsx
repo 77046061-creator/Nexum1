@@ -225,7 +225,7 @@ export default function Home() {
   return (
     <div
       className="min-h-screen"
-      style={{background:"#eefdf3",backgroundImage:"linear-gradient(90deg,rgba(59,130,246,0.15) 1px,transparent 1px),linear-gradient(rgba(59,130,246,0.15) 1px,transparent 1px),radial-gradient(ellipse 80% 60% at 0% 20%,rgba(59,130,246,0.12),transparent),radial-gradient(ellipse 60% 50% at 100% 80%,rgba(139,92,246,0.1),transparent)",backgroundSize:"40px 40px,40px 40px,100% 100%,100% 100%"}}
+      style={{background:"#0a1628",backgroundImage:"linear-gradient(90deg,rgba(59,130,246,0.2) 1px,transparent 1px),linear-gradient(rgba(59,130,246,0.2) 1px,transparent 1px),radial-gradient(ellipse 80% 60% at 0% 20%,rgba(37,99,235,0.25),transparent),radial-gradient(ellipse 60% 50% at 100% 80%,rgba(139,92,246,0.15),transparent),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(59,130,246,0.08),transparent)",backgroundSize:"40px 40px,40px 40px,100% 100%,100% 100%,100% 100%"}}
     >
       <Navbar />
       <main className="flex-1">
